@@ -1,0 +1,147 @@
+﻿input, button {
+	border: none;
+	background-color: white;
+}
+
+tr, th, td {
+	min-width: 10%;
+	padding: 8px;
+	transition: all 0.15s ease-in-out;
+}
+
+th {
+	font-size: 12px;
+	font-weight: 300;
+	background-color: black;
+	color: white;
+}
+
+td {
+	outline: solid black 0.5px;
+	outline-offset: -1px;
+}
+
+table {
+	width: 100%;
+	outline: solid;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+}
+
+.container {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.content {
+	margin-top: 150px;
+	padding: 20px;
+	width: 100%;
+	max-width: 800px;
+}
+
+.search-or-add {
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.search {
+	outline: solid 1px;
+	outline-offset: -1px;
+	padding: 5px;
+}
+
+.add-button, .search-button, .dialog-button-primary {
+	color: white;
+	background-color: black;
+	padding: 6px 10px;
+}
+
+.add-button {
+	margin-left: 5px; 
+}
+
+.dialog {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.63);
+	backdrop-filter: blur(15px);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	transition: all 0.15s ease-in-out;
+}
+
+.dialog-container {
+	overflow: hidden;
+	border: 1px solid transparent;
+	box-shadow: 0px 0px 8px rgb(100, 100, 100);
+	transition: all 0.15s ease-in-out;
+}
+
+.dialog-content {
+	padding: 20px;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	width: 400px;
+}
+
+.dialog-container label {
+	font-size: 12px;
+	opacity: 0.9;
+}
+
+.dialog-footer {
+	border-top: solid 1px;
+	display: flex;
+}
+
+.dialog-button {
+	outline: 1px solid transparent;
+	outline-offset: -1px;
+	width: 50%;
+	padding: 8px 0;
+	transition: background-color 0.2s ease-in-out;
+	font-size: 0.8rem;
+}
+
+	.dialog-button:hover {
+		background-color: rgb(195, 195, 195);
+	}
+
+.dialog-button-primary {
+	transition: opacity 0.2s ease-in-out;
+}
+
+	.dialog-button-primary:hover {
+		background-color: black;
+		opacity: 0.8;
+	}
+
+.scale-open {
+	transform: scaleY(1);
+	opacity: 1;
+}
+
+.scale-close {
+	transform: scaleY(0);
+	opacity: 0;
+}
+
+.action {
+	border: none;
+	background-color: transparent;
+}

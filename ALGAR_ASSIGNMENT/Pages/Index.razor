@@ -1,0 +1,141 @@
+﻿@page "/"
+
+@using ALGAR_ASSIGNMENT.Data
+@inject AlgorDbService DbService
+
+<PageTitle>Algor Assignment</PageTitle>
+
+<div class="container">
+	<div class="content">
+		<h3 class="title">Contacts Table</h3>
+		<div class="search-or-add">
+			<input class="search" placeholder="Search" @bind="input" @onkeypress="SearchContacts" />
+			<button class="search-button" @onclick="SearchContacts" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+			<button class="add-button" @onclick="ToggleDialog">Add</button>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Actions</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Phone</th>
+					<th>Email</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var contact in contacts)
+				{
+					<tr>
+						<td>
+							<button class="action" @onclick="@(() => OnDelete(contact))">
+								<i class="fa-regular fa-trash-can"></i>
+							</button>
+							<button class="action" @onclick="@(() => OnEdit(contact))">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</button>
+						</td>
+						<td>@contact.FirstName</td>
+						<td>@contact.LastName</td>
+						<td>@contact.Phone</td>
+						<td>@contact.Email</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="dialog @((showDialog ? "visible" : "invisible"))">
+	<div class="dialog-container @((showDialog ? "scale-open" : "scale-close"))">
+		<EditForm Model="@contactModel" OnValidSubmit="@HandleValidSubmit">
+			<div class="dialog-content">
+				<h4 class="fw-bold pb-2">@(updateContact ? "Update details" : "New contact")</h4>
+				<DataAnnotationsValidator />
+				<ValidationSummary />
+				<label>First name</label>
+				<InputText id="name" @bind-Value="contactModel.FirstName" />
+				<label>Last name</label>
+				<InputText id="name" @bind-Value="contactModel.LastName" />
+				<label>Phone</label>
+				<InputText id="name" @bind-Value="contactModel.Phone" />
+				<label>Email</label>
+				<InputText id="name" @bind-Value="contactModel.Email" />
+			</div>
+			<div class="dialog-footer">
+				<button class="dialog-button dialog-button-primary" type="submit">@(updateContact ? "Update" : "Add")</button>
+				<button class="dialog-button" @onclick="ToggleDialog" type="reset">Close</button>
+			</div>
+		</EditForm>
+	</div>
+</div>
+
+@code {
+	private Contact contactModel = new();
+	private List<Contact> contacts = new();
+	private string input = "";
+	private bool showDialog = false;
+	private bool updateContact = false;
+
+	protected override async Task OnInitializedAsync() => contacts = await DbService.GetAllContactsAsync();
+
+	private async Task SearchContacts(EventArgs e)
+	{
+		// Check if the call came from an input element.
+		// Return early if the key pressed is not Enter
+		if (e is KeyboardEventArgs && (e as KeyboardEventArgs).Code != "Enter") return;
+
+		// Return all contacts if input is empty
+		if (input.Trim() == "")
+		{
+			contacts = await DbService.GetAllContactsAsync();
+			return;
+		}
+
+		contacts = DbService.GetContact(input.Trim());
+	}
+
+	private async Task HandleValidSubmit()
+	{
+		if (!updateContact) await AddContactAsync(contactModel);
+		else await UpdateContactAsync(contactModel);
+
+		contacts = await DbService.GetAllContactsAsync();
+		ToggleDialog();
+	}
+
+	private async Task AddContactAsync(Contact contact)
+	{
+		DbService.AddContact(contact);
+		contacts = await DbService.GetAllContactsAsync();
+	}
+
+	private async Task DeleteContactAsync(Contact contact)
+	{
+		DbService.DeleteContact(contact);
+		contacts = await DbService.GetAllContactsAsync();
+	}
+
+	private async Task UpdateContactAsync(Contact contact)
+	{
+		DbService.UpdateContact(contact);
+		contacts = await DbService.GetAllContactsAsync();
+	}
+
+	private void OnEdit(Contact contact)
+	{
+		ToggleDialog();
+		updateContact = true;
+		contactModel = contact;
+	}
+
+	private async Task OnDelete(Contact contact) => await DeleteContactAsync(contact);
+
+	private void ToggleDialog()
+	{
+		showDialog = !showDialog;
+		contactModel = new();
+		updateContact = false;
+	}
+}
+
