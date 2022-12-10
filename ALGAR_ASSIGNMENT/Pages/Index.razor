@@ -92,7 +92,7 @@
 			return;
 		}
 
-		contacts = DbService.GetContact(input.Trim());
+		contacts = await DbService.GetContact(input);
 	}
 
 	private async Task HandleValidSubmit()

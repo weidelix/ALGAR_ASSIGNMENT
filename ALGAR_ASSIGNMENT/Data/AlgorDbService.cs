@@ -11,7 +11,7 @@ namespace ALGAR_ASSIGNMENT.Data
 
 		public async Task<List<Contact>> GetAllContactsAsync()
 		{
-			List<Contact> result = new List<Contact>();
+			List<Contact> result;
 			using (var context = _contextFactory.CreateDbContext())
 			{
 				result = await context.Contacts.ToListAsync();
@@ -20,13 +20,19 @@ namespace ALGAR_ASSIGNMENT.Data
 			return result;
 		}
 
-		public List<Contact> GetContact(string firstName)
+		public async Task<List<Contact>> GetContact(string value)
 		{
 			List<Contact> result;
+			value = value.Trim().ToLower();
 
 			using (var context = _contextFactory.CreateDbContext())
 			{
-				result = context.Contacts.Where(e => e.FirstName.ToLower().Contains(firstName)).ToList();
+				result = await context.Contacts.Where(e => 
+					e.FirstName.ToLower().Contains(value) ||
+					e.LastName.ToLower().Contains(value) ||
+					e.Phone.ToLower().Contains(value) ||
+					(e.Email != null ? e.Email!.ToLower().Contains(value) : false)
+				).ToListAsync();
 			}
 
 			return result;
