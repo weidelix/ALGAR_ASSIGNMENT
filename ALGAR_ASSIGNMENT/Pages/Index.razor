@@ -18,8 +18,8 @@
 			<thead>
 				<tr>
 					<th>Actions</th>
-					<th>First Name</th>
 					<th>Last Name</th>
+					<th>First Name</th>
 					<th>Phone</th>
 					<th>Email</th>
 				</tr>
@@ -36,8 +36,8 @@
 								<i class="fa-regular fa-pen-to-square"></i>
 							</button>
 						</td>
-						<td>@contact.FirstName</td>
 						<td>@contact.LastName</td>
+						<td>@contact.FirstName</td>
 						<td>@contact.Phone</td>
 						<td>@contact.Email</td>
 					</tr>
@@ -54,10 +54,10 @@
 				<h4 class="fw-bold pb-2">@(updateContact ? "Update details" : "New contact")</h4>
 				<DataAnnotationsValidator />
 				<ValidationSummary />
-				<label>First name</label>
-				<InputText id="name" @bind-Value="contactModel.FirstName" />
 				<label>Last name</label>
 				<InputText id="name" @bind-Value="contactModel.LastName" />
+				<label>First name</label>
+				<InputText id="name" @bind-Value="contactModel.FirstName" />
 				<label>Phone</label>
 				<InputText id="name" @bind-Value="contactModel.Phone" />
 				<label>Email</label>
@@ -117,10 +117,10 @@
 		using (var context = ContextFactory.CreateDbContext())
 		{
 			contacts = await context.Contacts.Where(e =>
-												e.FirstName.ToLower().Contains(value) ||
-												e.LastName.ToLower().Contains(value) ||
-												e.Phone.ToLower().Contains(value) ||
-												(e.Email != null ? e.Email!.ToLower().Contains(value) : false)).ToListAsync();
+				e.FirstName.ToLower().Contains(value) ||
+				e.LastName.ToLower().Contains(value) ||
+				e.Phone.ToLower().Contains(value) ||
+				(e.Email != null ? e.Email!.ToLower().Contains(value) : false)).ToListAsync();
 		}
 	}
 
