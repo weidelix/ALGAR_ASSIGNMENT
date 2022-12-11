@@ -101,7 +101,6 @@
 		if (!updateContact) await CreateContactAsync(contactModel);
 		else await UpdateContactAsync(contactModel);
 
-		await GetAllContactsAsync();
 		ToggleDialog();
 	}
 
@@ -131,6 +130,7 @@
 		{
 			context.Contacts.Add(contact);
 			await context.SaveChangesAsync();
+			contacts = await context.Contacts.ToListAsync();
 		}
 	}
 
@@ -140,6 +140,7 @@
 		{
 			context.Entry(contact).State = EntityState.Modified;
 			await context.SaveChangesAsync();
+			contacts = await context.Contacts.ToListAsync();
 		}
 	}
 
