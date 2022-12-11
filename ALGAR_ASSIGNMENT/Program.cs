@@ -9,8 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddDbContextFactory<AlgorDBContext>(options =>
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+	options.UseSqlite("Data Source=AlgarAssignment.db"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -23,6 +23,6 @@ namespace ALGAR_ASSIGNMENT.Data
 		public string Phone { get; set; }
 
 		[StringLength(100)]
-		public string? Email { get; set; }
+		public string Email { get; set; }
 	}
 }

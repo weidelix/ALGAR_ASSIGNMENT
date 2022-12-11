@@ -120,7 +120,7 @@
 												e.FirstName.ToLower().Contains(value) ||
 												e.LastName.ToLower().Contains(value) ||
 												e.Phone.ToLower().Contains(value) ||
-												(e.Email != null ? e.Email!.ToLower().Contains(value) : false)).ToListAsync();
+												e.Email.ToLower().Contains(value)).ToListAsync();
 		}
 	}
 
