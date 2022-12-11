@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System.Data.Common;
 
 namespace ALGAR_ASSIGNMENT.Data
 {
-	public class AlgorDbContext : DbContext
+	public class AlgorDBContext : DbContext
 	{
-		public AlgorDbContext(DbContextOptions options) : base(options) { }
+		public AlgorDBContext() { }
+		public AlgorDBContext(DbContextOptions options) : base(options) { }
 
 		public virtual DbSet<Contact> Contacts { get; set; }
 	}

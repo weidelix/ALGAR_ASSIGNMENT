@@ -8,9 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddDbContextFactory<AlgorDbContext>(options =>
+builder.Services.AddDbContextFactory<AlgorDBContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddSingleton<AlgorDbService>();
 
 var app = builder.Build();
 
