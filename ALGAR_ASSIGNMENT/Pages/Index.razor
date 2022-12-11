@@ -47,7 +47,7 @@
 	</div>
 </div>
 
-<div class="dialog @((showDialog ? "visible" : "invisible"))">
+<div class="dialog @((showDialog ? "visible opacity-100" : "invisible opacity-0"))">
 	<div class="dialog-container @((showDialog ? "scale-open" : "scale-close"))">
 		<EditForm Model="@contactModel" OnValidSubmit="@HandleValidSubmit">
 			<div class="dialog-content">
