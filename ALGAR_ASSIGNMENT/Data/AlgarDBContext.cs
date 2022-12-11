@@ -3,10 +3,10 @@ using System.Data.Common;
 
 namespace ALGAR_ASSIGNMENT.Data
 {
-	public class AlgorDBContext : DbContext
+	public class AlgarDBContext : DbContext
 	{
-		public AlgorDBContext() { }
-		public AlgorDBContext(DbContextOptions options) : base(options) { }
+		public AlgarDBContext() { }
+		public AlgarDBContext(DbContextOptions options) : base(options) { }
 
 		public virtual DbSet<Contact> Contacts { get; set; }
 	}

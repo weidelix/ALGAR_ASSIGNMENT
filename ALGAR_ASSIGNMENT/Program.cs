@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddDbContextFactory<AlgorDBContext>(options =>
+builder.Services.AddDbContextFactory<AlgarDBContext>(options =>
 	options.UseSqlite("Data Source=AlgarAssignment.db"));
 var app = builder.Build();
 
